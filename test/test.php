@@ -100,7 +100,7 @@ if (!$verificar) {
     */
 
 
-// -- Inicio test ingresos --
+/* // -- Inicio test ingresos --
 
 require_once '../ingresos.php';
 
@@ -150,15 +150,63 @@ if ($ingresos) {
 } else {
     echo "No hay ingresos registrados.<br>";
 }
+*/ //Fin test ingresos
 
-/*
-// Eliminar el ingreso insertado
-echo "<br><h3>Eliminando el ingreso insertado...</h3>";
-$ingreso->eliminar();
-echo "✔ Ingreso eliminado correctamente.<br>";
 
-echo "<br><hr><h3>Fin de la prueba de la clase Ingreso.</h3
+require_once '../aportes_legales.php';
+
+echo "<h2>=== PRUEBA DE CLASE APORTES LEGALES ===</h2>";
+
+// Crear un nuevo aporte legal
+echo "<h3>Insertando un nuevo aporte legal...</h3>";
+
+$aporte = new AporteLegal();
+$aporte->setCooperativaId(1); // Cooperativa manual. ver una opcion valida
+$aporte->setConcepto("Pago BPS");
+$aporte->setMonto(2500.75);
+$aporte->setFecha(date('Y-m-d'));
+$aporte->guardar();
+
+echo "✔ Aporte legal guardado con ID: " . $aporte->getId() . "<br><br>";
+
+// Obtener aporte legal por ID
+echo "<h3>Obteniendo aporte legal por ID...</h3>";
+
+$aporteObtenido = AporteLegal::obtenerPorId($aporte->getId());
+if ($aporteObtenido) {
+    echo "ID: " . $aporteObtenido->getId() . "<br>";
+    echo "Cooperativa ID: " . $aporteObtenido->getCooperativaId() . "<br>";
+    echo "Concepto: " . $aporteObtenido->getConcepto() . "<br>";
+    echo "Monto: " . $aporteObtenido->getMonto() . "<br>";
+    echo "Fecha: " . $aporteObtenido->getFecha() . "<br>";
+    echo "Creado: " . $aporteObtenido->getCreatedAt() . "<br>";
+    echo "Actualizado: " . $aporteObtenido->getUpdateAt() . "<br><br>";
+} else {
+    echo "✖ No se encontró el aporte legal.<br><br>";
+}
+
+// Listar todos los aportes legales
+echo "<h3>Listado de todos los aportes legales:</h3>";
+$aportes = AporteLegal::listar();
+
+if ($aportes) {
+    foreach ($aportes as $a) {
+        echo "ID: " . $a['id'] .
+            " | Coop ID: " . $a['cooperativa_id'] .
+            " | Concepto: " . $a['concepto'] .
+            " | Monto: " . $a['monto'] .
+            " | Fecha: " . $a['fecha'] .
+            " | Creado: " . $a['created_at'] .
+            " | Actualizado: " . $a['update_at'] . "<br>";
+    }
+} else {
+    echo "No hay aportes legales registrados.<br>";
+}
+
+/*// Eliminar el aporte insertado
+echo "<br><h3>Eliminando el aporte legal insertado...</h3>";
+$aporte->eliminar();
+echo "✔ Aporte legal eliminado correctamente.<br>";
+
+echo "<br><hr><h3>Fin de la prueba de la clase AporteLegal.</h3>";
 */
-
-
-?>

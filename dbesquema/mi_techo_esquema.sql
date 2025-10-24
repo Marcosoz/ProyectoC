@@ -102,6 +102,7 @@ CREATE TABLE aportes_legales (
     monto DECIMAL(10,2),
     fecha DATE NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    update_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (cooperativa_id) REFERENCES cooperativas(id)
 );
 
