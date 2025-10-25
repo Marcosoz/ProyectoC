@@ -152,8 +152,9 @@ if ($ingresos) {
 }
 */ //Fin test ingresos
 
-
-require_once '../aportes_legales.php';
+/* // Inicio test aportes legales
+    
+    require_once '../aportes_legales.php';
 
 echo "<h2>=== PRUEBA DE CLASE APORTES LEGALES ===</h2>";
 
@@ -203,10 +204,197 @@ if ($aportes) {
     echo "No hay aportes legales registrados.<br>";
 }
 
-/*// Eliminar el aporte insertado
-echo "<br><h3>Eliminando el aporte legal insertado...</h3>";
-$aporte->eliminar();
-echo "✔ Aporte legal eliminado correctamente.<br>";
-
-echo "<br><hr><h3>Fin de la prueba de la clase AporteLegal.</h3>";
 */
+
+
+/* // Inicio test compras
+
+require_once '../compras.php';
+
+// Crear una nueva compra
+$compra = new Compra();
+$compra->setProveedorId(2); // Para el test tiene que haber un proveedor
+$compra->setFecha('2025-10-23');
+$compra->setDescripcion('Compra de materiales de construcción');
+$compra->setMonto(15000.50);
+$compra->setSaldoPendiente(5000.00);
+
+// Guardar en la base de datos
+$compra->guardar();
+
+echo "Compra creada correctamente con ID: " . $compra->getId();
+
+// Buscar una compra por id
+require_once '../compras.php';
+
+// Buscar una compra por ID
+$id = 3;
+$compra = Compra::buscarPorId($id);
+
+if ($compra) {
+    echo "<h3>Compra encontrada:</h3>";
+    echo "ID: " . $compra->getId() . "<br>";
+    echo "Proveedor ID: " . $compra->getProveedorId() . "<br>";
+    echo "Fecha: " . $compra->getFecha() . "<br>";
+    echo "Descripción: " . $compra->getDescripcion() . "<br>";
+    echo "Monto: " . $compra->getMonto() . "<br>";
+    echo "Saldo Pendiente: " . $compra->getSaldoPendiente() . "<br>";
+    echo "Creada: " . $compra->getCreatedAt();
+} else {
+    echo "No se encontró ninguna compra con ese ID.";
+}
+
+// listar compras
+require_once '../compras.php';
+
+$compras = Compra::obtenerTodos();
+
+if ($compras) {
+    echo "<h3>Listado de compras:</h3>";
+    foreach ($compras as $compra) {
+        echo "ID: " . $compra['id'] . " | ";
+        echo "Proveedor ID: " . $compra['proveedor_id'] . " | ";
+        echo "Monto: " . $compra['monto'] . " | ";
+        echo "Fecha: " . $compra['fecha'] . "<br>";
+    }
+} else {
+    echo "No hay compras registradas.";
+}
+
+require_once '../compras.php';
+
+// Buscar la compra que querés modificar
+$compra = Compra::buscarPorId(3); // id manual
+
+if ($compra) {
+    $compra->setDescripcion('Compra actualizada: materiales eléctricos');
+    $compra->setMonto(18000.00);
+    $compra->setSaldoPendiente(3000.00);
+    $compra->guardar();
+
+    echo "Compra actualizada correctamente.";
+} else {
+    echo "No se encontró la compra para actualizar.";
+}
+
+require_once '../compras.php';
+
+echo "<h2>=== PRUEBA: ELIMINAR COMPRA ===</h2>";
+
+// ID de la compra a eliminar (cambialo según tu base de datos)
+$idEliminar = 4;
+
+// Buscar la compra antes de eliminar
+$compra = Compra::buscarPorId($idEliminar);
+
+if ($compra) {
+    echo "Compra encontrada:<br>";
+    echo "ID: " . $compra->getId() . "<br>";
+    echo "Descripción: " . $compra->getDescripcion() . "<br>";
+    echo "Monto: " . $compra->getMonto() . "<br><br>";
+
+    // Eliminar la compra
+    $compra->eliminar();
+
+    echo "Compra con ID $idEliminar eliminada correctamente.<br>";
+} else {
+    echo "No se encontró ninguna compra con ID $idEliminar.<br>";
+}
+
+echo "<hr><h3>Fin de la prueba de eliminación.</h3>";
+// Fin test compras
+
+// Inicio test horas_trabajadas
+
+require_once '../horas_trabajadas.php';
+
+// Crear un nuevo registro de horas
+$horas = new HorasTrabajadas();
+$horas->setSocioId(3); // Socio manual, debe existir uno
+$horas->setFecha('2025-10-23');
+$horas->setHoras(8.5);
+$horas->setTarea('Limpieza y organización del depósito');
+
+// Guardar en la base de datos
+$horas->guardar();
+
+echo "Registro de horas creado correctamente con ID: " . $horas->getId();
+
+
+require_once '../horas_trabajadas.php';
+
+// Buscar un registro de horas por ID
+$id = 1; // id manual
+$horas = HorasTrabajadas::buscarPorId($id);
+
+if ($horas) {
+    echo "<h3>Registro encontrado:</h3>";
+    echo "ID: " . $horas->getId() . "<br>";
+    echo "Socio ID: " . $horas->getSocioId() . "<br>";
+    echo "Fecha: " . $horas->getFecha() . "<br>";
+    echo "Horas: " . $horas->getHoras() . "<br>";
+    echo "Tarea: " . $horas->getTarea() . "<br>";
+    echo "Creado: " . $horas->getCreatedAt() . "<br>";
+} else {
+    echo "No se encontró ningún registro con ese ID.";
+}
+
+require_once '../horas_trabajadas.php';
+
+// Obtener todos los registros
+$registros = HorasTrabajadas::obtenerTodos();
+
+if ($registros) {
+    echo "<h3>Listado de horas trabajadas:</h3>";
+    foreach ($registros as $r) {
+        echo "ID: " . $r['id'] . " | ";
+        echo "Socio ID: " . $r['socio_id'] . " | ";
+        echo "Fecha: " . $r['fecha'] . " | ";
+        echo "Horas: " . $r['horas'] . " | ";
+        echo "Tarea: " . $r['tarea'] . "<br>";
+    }
+} else {
+    echo "No hay registros de horas trabajadas.";
+}
+
+require_once '../horas_trabajadas.php';
+
+// Buscar el registro a actualizar
+$id = 1; // id manual
+$horas = HorasTrabajadas::buscarPorId($id);
+
+if ($horas) {
+    $horas->setHoras(10.0);
+    $horas->setTarea('Trabajo en estructura de techo');
+    $horas->guardar();
+
+    echo "Registro de horas actualizado correctamente.";
+} else {
+    echo "No se encontró el registro para actualizar.";
+}
+
+*/
+
+
+require_once '../horas_trabajadas.php';
+
+echo "<h2>=== PRUEBA: ELIMINAR HORAS TRABAJADAS ===</h2>";
+
+$idEliminar = 1; // id manual
+$horas = HorasTrabajadas::buscarPorId($idEliminar);
+
+if ($horas) {
+    echo "Registro encontrado:<br>";
+    echo "ID: " . $horas->getId() . "<br>";
+    echo "Tarea: " . $horas->getTarea() . "<br><br>";
+
+    $horas->eliminar();
+
+    echo "Registro con ID $idEliminar eliminado correctamente.<br>";
+} else {
+    echo "No se encontró ningún registro con ID $idEliminar.<br>";
+}
+
+echo "<hr><h3>Fin de la prueba de eliminación.</h3>";
+?>
+
