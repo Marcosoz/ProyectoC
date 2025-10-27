@@ -373,9 +373,6 @@ if ($horas) {
     echo "No se encontró el registro para actualizar.";
 }
 
-*/
-
-
 require_once '../horas_trabajadas.php';
 
 echo "<h2>=== PRUEBA: ELIMINAR HORAS TRABAJADAS ===</h2>";
@@ -396,5 +393,67 @@ if ($horas) {
 }
 
 echo "<hr><h3>Fin de la prueba de eliminación.</h3>";
-?>
+*/
 
+// Inicio test pagoSocios
+require_once '../pago_socios.php';
+/* 
+// --- 1. Crear un nuevo pago ---
+echo "<h3>1. Crear un nuevo pago</h3>";
+
+$pago = new PagoSocios();
+$pago->setSocioId(3); // ID de un socio existente
+$pago->setMonto(1500.75);
+$pago->setConcepto("Pago mensual cuota cooperativa");
+$pago->setFecha(date('Y-m-d'));
+$pago->guardar();
+
+echo "Pago creado con ID: " . $pago->getId() . "<br><br>";
+
+
+// --- 2. Buscar un pago por ID ---
+echo "<h3>2. Buscar pago por ID</h3>";
+
+$pagoBuscado = PagoSocios::buscarPorId($pago->getId());
+if ($pagoBuscado) {
+    echo "ID: " . $pagoBuscado->getId() . "<br>";
+    echo "Socio ID: " . $pagoBuscado->getSocioId() . "<br>";
+    echo "Monto: $" . $pagoBuscado->getMonto() . "<br>";
+    echo "Concepto: " . $pagoBuscado->getConcepto() . "<br>";
+    echo "Fecha: " . $pagoBuscado->getFecha() . "<br>";
+    echo "Creado: " . $pagoBuscado->getCreatedAt() . "<br>";
+    echo "Actualizado: " . $pagoBuscado->getUpdateAt() . "<br><br>";
+} else {
+    echo "No se encontró el pago con ID " . $pago->getId() . "<br><br>";
+}
+
+// --- 3. Listar todos los pagos ---
+echo "<h3>3. Listar todos los pagos registrados</h3>";
+
+$pagos = PagoSocios::obtenerTodos();
+if (count($pagos) > 0) {
+    foreach ($pagos as $p) {
+        echo "ID: " . $p['id'] . " | Socio ID: " . $p['socio_id'] .
+            " | Monto: $" . $p['monto'] .
+            " | Concepto: " . $p['concepto'] .
+            " | Fecha: " . $p['fecha'] . "<br>";
+    }
+} else {
+    echo "No hay pagos registrados todavía.<br>";
+}
+*/
+// --- Eliminar un pago existente ---
+
+$idEliminar = 2; // Valor manual para id del pago
+
+$pago = PagoSocios::buscarPorId($idEliminar);
+
+if ($pago) {
+    if ($pago->eliminar()) {
+        echo "El pago con ID $idEliminar fue eliminado correctamente.<br>";
+    } else {
+        echo "Ocurrió un error al intentar eliminar el pago con ID $idEliminar.<br>";
+    }
+} else {
+    echo "No se encontró ningún pago con ID $idEliminar.<br>";
+}

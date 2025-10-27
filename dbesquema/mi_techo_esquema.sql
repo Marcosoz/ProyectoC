@@ -114,5 +114,6 @@ CREATE TABLE pagos_socios (
     concepto TEXT,
     fecha DATE NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+    update_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (socio_id) REFERENCES socios(id)
 );
