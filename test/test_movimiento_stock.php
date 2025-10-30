@@ -17,7 +17,7 @@ if (!$stock) {
     $cantidad_inicial = 10;
 } else {
     $stock_id = $stock['id'];
-    $stock_nombre = $stock['nombre_material'];
+    $stock_nombre = $stock['nombre'];
     $cantidad_inicial = $stock['cantidad'];
 }
 
@@ -27,7 +27,7 @@ echo "Probando con el material: {$stock_nombre} (Stock inicial: {$cantidad_inici
 $movimiento = new MovimientoStock();
 $movimiento->setStockId($stock_id);
 $movimiento->setTipoMovimiento('entrada'); // opciones: 'entrada', 'salida', 'devolucion'
-$movimiento->setCantidad(5); // cantidad a sumar o restar
+$movimiento->setCantidad(25); // cantidad a sumar o restar
 $movimiento->setResponsable('Juan Pérez');
 $movimiento->setMotivo('Compra adicional de materiales');
 $movimiento->setFecha(date('Y-m-d'));
@@ -45,9 +45,11 @@ $nuevo_stock = $consulta->fetchColumn();
 
 echo "Nuevo stock de '{$stock_nombre}': {$nuevo_stock}\n";
 
+/*
 // Paso 5: Listar todos los movimientos
 echo "\n Lista de movimientos registrados:\n";
 $movimientos = MovimientoStock::listar();
 foreach ($movimientos as $m) {
     echo "- [{$m['id']}] {$m['tipo_movimiento']} de {$m['cantidad']} unidades, responsable: {$m['responsable']} ({$m['fecha']})\n";
 }
+*/
