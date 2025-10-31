@@ -4,17 +4,17 @@ require_once '../movimientos_stock.php';
 
 // Paso 1: Verificamos si existe el ítem de stock que vamos a usar
 $conexion = new Conexion();
-$consulta = $conexion->prepare("SELECT id, nombre, cantidad FROM stock LIMIT 1");
+$consulta = $conexion->prepare("SELECT id, nombre, cantidad FROM stock LIMIT 10");
 $consulta->execute();
 $stock = $consulta->fetch(PDO::FETCH_ASSOC);
 
 if (!$stock) {
     echo "No hay registros en la tabla 'stock'. Insertando uno de prueba...\n";
-    $insert = $conexion->prepare("INSERT INTO stock (nombre, unidad, cantidad, descripcion) VALUES ('Cemento', 'bolsas', 10, 'Cemento Portland')");
+    $insert = $conexion->prepare("INSERT INTO stock (nombre, unidad, cantidad, descripcion) VALUES ('Pala', 'unidad', 0, 'Pala de mano')");
     $insert->execute();
     $stock_id = $conexion->lastInsertId();
-    $stock_nombre = 'Cemento';
-    $cantidad_inicial = 10;
+    $stock_nombre = 'Pala';
+    $cantidad_inicial = 0;
 } else {
     $stock_id = $stock['id'];
     $stock_nombre = $stock['nombre'];
@@ -27,7 +27,7 @@ echo "Probando con el material: {$stock_nombre} (Stock inicial: {$cantidad_inici
 $movimiento = new MovimientoStock();
 $movimiento->setStockId($stock_id);
 $movimiento->setTipoMovimiento('entrada'); // opciones: 'entrada', 'salida', 'devolucion'
-$movimiento->setCantidad(25); // cantidad a sumar o restar
+$movimiento->setCantidad(5); // cantidad a sumar o restar
 $movimiento->setResponsable('Juan Pérez');
 $movimiento->setMotivo('Compra adicional de materiales');
 $movimiento->setFecha(date('Y-m-d'));

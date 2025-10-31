@@ -19,7 +19,7 @@ $cantidad_actual = $stock['cantidad'];
 echo "Material: {$stock_nombre} (Stock actual: {$cantidad_actual})\n";
 
 // Paso 2: Definir cantidad a retirar
-$cantidad_salida = 47;
+$cantidad_salida = 20;
 
 if ($cantidad_actual < $cantidad_salida) {
     echo "No hay suficiente stock para retirar {$cantidad_salida} unidades.\n";

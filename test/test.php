@@ -1,29 +1,40 @@
 <?php
+require_once '../socios.php';
 
 /*
-require_once 'socios.php';
-
 // Crear un nuevo socio
 $socio = new Socio(
     1, // ID de cooperativa (ajusta según tus datos)
-    "Juan Pérez",
-    "51234567",
-    "099123456",
-    "juan@example.com",
+    "Manuel Mendez",
+    "12223334",
+    "099123445",
+    "jose@example.com",
     "2025-10-20"
 );
 $socio->guardar();
 
 echo "Socio creado con ID: " . $socio->getId() . "<br>";
 
-// Buscar socio por ID
+// Buscar un socio existente (otro ID)
+$idBuscado = 3;
+$encontrado = Socio::buscarPorId($idBuscado);
+
+if ($encontrado) {
+    echo "Socio existente encontrado: " . $encontrado->getNombre() . "<br>";
+} else {
+    echo "No se encontró un socio con ID $idBuscado.<br>";
+}
+
+/*
+// Buscar socio por ID Opcion 1 --crear una variable socio vacia para que la busque--
 $encontrado = Socio::buscarPorId($socio->getId());
 if ($encontrado) {
     echo "Socio encontrado: " . $encontrado->getNombre() . "<br>";
 }
 
+
 // Actualizar datos
-$encontrado->setTelefono("098654321");
+$encontrado->setTelefono("12223334");
 $encontrado->guardar();
 echo "Socio actualizado.<br>";
 
@@ -40,7 +51,6 @@ echo "</pre>";
 */ //FIN TEST SOCIOS
 
 /*
-
 require_once '../cooperativas.php';
 
 // Crear nueva cooperativa
@@ -394,10 +404,10 @@ if ($horas) {
 
 echo "<hr><h3>Fin de la prueba de eliminación.</h3>";
 */
-
+/* 
 // Inicio test pagoSocios
 require_once '../pago_socios.php';
-/* 
+
 // --- 1. Crear un nuevo pago ---
 echo "<h3>1. Crear un nuevo pago</h3>";
 
@@ -442,6 +452,8 @@ if (count($pagos) > 0) {
     echo "No hay pagos registrados todavía.<br>";
 }
 */
+
+/*
 // --- Eliminar un pago existente ---
 
 $idEliminar = 2; // Valor manual para id del pago
@@ -457,3 +469,4 @@ if ($pago) {
 } else {
     echo "No se encontró ningún pago con ID $idEliminar.<br>";
 }
+    */
