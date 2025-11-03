@@ -1,20 +1,23 @@
 <?php
 require_once '../socios.php';
 
-/*
+
 // Crear un nuevo socio
 $socio = new Socio(
     1, // ID de cooperativa (ajusta según tus datos)
-    "Manuel Mendez",
-    "12223334",
+    "Marco Sozaro",
+    "47103398",
     "099123445",
-    "jose@example.com",
-    "2025-10-20"
+    "marco@example.com",
+    "2025-10-20",
+    "1",
+    "1",
+    "1234"
 );
 $socio->guardar();
 
 echo "Socio creado con ID: " . $socio->getId() . "<br>";
-
+/*
 // Buscar un socio existente (otro ID)
 $idBuscado = 3;
 $encontrado = Socio::buscarPorId($idBuscado);
@@ -24,6 +27,7 @@ if ($encontrado) {
 } else {
     echo "No se encontró un socio con ID $idBuscado.<br>";
 }
+*/
 
 /*
 // Buscar socio por ID Opcion 1 --crear una variable socio vacia para que la busque--
@@ -469,4 +473,4 @@ if ($pago) {
 } else {
     echo "No se encontró ningún pago con ID $idEliminar.<br>";
 }
-    */
+*/

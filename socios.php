@@ -12,6 +12,7 @@ class Socio
     private $fecha_ingreso;
     private $activo;
     private $socio;
+    private $clave;
     private $created_at;
     private $update_at;
 
@@ -53,6 +54,10 @@ class Socio
     public function getSocio()
     {
         return $this->socio;
+    }
+    public function getClave()
+    {
+        return $this->clave;
     }
     public function getCreatedAt()
     {
@@ -96,6 +101,16 @@ class Socio
     {
         $this->socio = $socio;
     }
+    public function setClave($clave)
+    {
+        // Solo aplicar el hash si el valor no parece ya encriptado
+        if (!password_get_info($clave)['algo']) {
+            $this->clave = password_hash($clave, PASSWORD_DEFAULT);
+        } else {
+            // Si ya está encriptada (por ejemplo, cargada desde la base de datos), la dejamos igual
+            $this->clave = $clave;
+        }
+    }
 
     // ----- Constructor -----
     public function __construct(
@@ -107,6 +122,7 @@ class Socio
         $fecha_ingreso = null,
         $activo = true,
         $socio = true,
+        $clave = null,
         $id = null
     ) {
         $this->cooperativa_id = $cooperativa_id;
@@ -117,6 +133,7 @@ class Socio
         $this->fecha_ingreso = $fecha_ingreso;
         $this->activo = $activo;
         $this->socio = $socio;
+        $this->setClave($clave); // Debe llamar a la funcion setClave asi aplica el password_hash, sino queda en texto plano
         $this->id = $id;
     }
 
@@ -134,14 +151,15 @@ class Socio
             fecha_ingreso = :fecha_ingreso,
             activo = :activo,
             socio = :socio,
+            clave = :clave,
             update_at = CURRENT_TIMESTAMP
             WHERE id = :id';
             $consulta = $Conexion->prepare($sql);
             $consulta->bindParam(':id', $this->id);
         } else {
             $sql = 'INSERT INTO ' . self::TABLA . ' 
-            (cooperativa_id, nombre, documento, telefono, email, fecha_ingreso, activo, socio)
-            VALUES (:cooperativa_id, :nombre, :documento, :telefono, :email, :fecha_ingreso, :activo, :socio)';
+            (cooperativa_id, nombre, documento, telefono, email, fecha_ingreso, activo, socio, clave)
+            VALUES (:cooperativa_id, :nombre, :documento, :telefono, :email, :fecha_ingreso, :activo, :socio, :clave)';
             $consulta = $Conexion->prepare($sql);
         }
 
@@ -153,6 +171,7 @@ class Socio
         $consulta->bindParam(':fecha_ingreso', $this->fecha_ingreso);
         $consulta->bindParam(':activo', $this->activo, PDO::PARAM_BOOL);
         $consulta->bindParam(':socio', $this->socio, PDO::PARAM_BOOL);
+        $consulta->bindParam(':clave', $this->clave);
 
         $consulta->execute();
         if (!$this->id) {
@@ -180,6 +199,7 @@ class Socio
                 $registro['fecha_ingreso'],
                 $registro['activo'],
                 $registro['socio'],
+                $registro['clave'],
                 $registro['id']
             );
             $socio->created_at = $registro['created_at'];
