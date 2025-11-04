@@ -1,7 +1,8 @@
 <?php
 require_once '../socios.php';
 
-
+/*
+// INICIO TEST SOCIOS
 // Crear un nuevo socio
 $socio = new Socio(
     1, // ID de cooperativa (ajusta según tus datos)
@@ -17,26 +18,21 @@ $socio = new Socio(
 $socio->guardar();
 
 echo "Socio creado con ID: " . $socio->getId() . "<br>";
-/*
+*/
+
 // Buscar un socio existente (otro ID)
 $idBuscado = 3;
 $encontrado = Socio::buscarPorId($idBuscado);
 
 if ($encontrado) {
     echo "Socio existente encontrado: " . $encontrado->getNombre() . "<br>";
+    echo "Documento: " . $encontrado->getDocumento() . "<br>";
+    echo "Telefono: " . $encontrado->getTelefono() . "<br>";
 } else {
     echo "No se encontró un socio con ID $idBuscado.<br>";
 }
-*/
 
 /*
-// Buscar socio por ID Opcion 1 --crear una variable socio vacia para que la busque--
-$encontrado = Socio::buscarPorId($socio->getId());
-if ($encontrado) {
-    echo "Socio encontrado: " . $encontrado->getNombre() . "<br>";
-}
-
-
 // Actualizar datos
 $encontrado->setTelefono("12223334");
 $encontrado->guardar();
@@ -54,7 +50,7 @@ echo "</pre>";
 
 */ //FIN TEST SOCIOS
 
-/*
+/* // INICIO TEST COOPERATIVA
 require_once '../cooperativas.php';
 
 // Crear nueva cooperativa
@@ -74,9 +70,9 @@ foreach ($todas as $fila) {
     echo $fila['id'] . " - " . $fila['nombre'] . "<br>";
 }
 
-*/ //fin test cooperativas
+*/ //FIN TEST COOPERATIVAS
 
-/* //inicio test proveedores 
+/* //INICIO TEST PROVEEDORES
 
 require_once '../proveedores.php';
 
