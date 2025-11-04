@@ -21,6 +21,7 @@ CREATE TABLE socios (
     fecha_ingreso DATE,
     activo BOOLEAN DEFAULT TRUE,
     socio BOOLEAN DEFAULT TRUE,
+    clave VARCHAR(100),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     update_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (cooperativa_id) REFERENCES cooperativas(id)
